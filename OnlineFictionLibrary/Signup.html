@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup - FictionReads</title>
+    <link rel="icon" type="image/png" href="logoFR2.png">
+    <style>
+body {
+    background-image:  url("fictionImage.jpg");
+    display: flex;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 80px 0;
+}
+body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); 
+        }
+.signup-container {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 400px;
+    animation: fadeIn 1.2s ease-in-out;
+    filter: brightness(0.9);
+    margin-top: 40px;
+    
+}
+
+h2 {
+    text-align: center;
+    color: #8f2917;
+    font-size: 1.8rem;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 2px solid #8f2917;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-sizing: border-box;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    transform: scale(1.05);
+    border-color: #8f2917;
+}
+
+button {
+    width: 100%;
+    background: linear-gradient(135deg, #8f2917, #6a1405);
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #8f2917, #5a0e01);
+}
+
+p {
+    text-align: center;
+    margin-top: 15px;
+}
+
+a {
+    color: #1ea1d9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" autocomplete="name" required >
+            <small id="nameError" class="error"></small>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" autocomplete="email"required>
+            <small id="emailError" class="error"></small>
+            
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let nameError = document.getElementById("nameError");
+            let emailError = document.getElementById("emailError");
+
+            nameError.textContent = "";
+            emailError.textContent = "";
+
+            let namePattern = /^[A-Za-z\s]+$/;
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!namePattern.test(name)) {
+                nameError.textContent = "Only letters and spaces allowed.";
+                return;
+            }
+
+            if (!emailPattern.test(email)) {
+                emailError.textContent = "Enter a valid email.";
+                return;
+            }
+
+            fetch('http://localhost:3000/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ name, email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect) {
+                    window.location.href = "http://localhost:3000" + data.redirect;
+                } else if (data.error) {
+                    alert(data.error); 
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Something went wrong. Please try again.");
+            });
+        });
+    </script>
+</body>
+</html>

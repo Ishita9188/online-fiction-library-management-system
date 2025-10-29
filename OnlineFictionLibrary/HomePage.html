@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FictionReads</title>
+    <link rel="icon" type="image/png" href="logoFR2.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+        }
+        p {
+            padding: 20px;
+        }
+        .library {
+            font-size: 2.5rem;
+            color: #8f2917;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            background: url('https://aarp.widen.net/content/6y1sl0buba/png/1140-american-books.png?crop=true&anchor=0,0&color=ffffffff&u=1javjt&w=1140&h=655') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); 
+        }
+        .banner-content {
+            position: relative;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+        }
+        .banner h1 {
+            font-size: 2.5rem;
+        }
+        .banner p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .banner .buttons a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #8f2917;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            margin: 10px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .banner .buttons a:hover {
+            background-color: #4b1e08;
+            transform: scale(1.1);
+        }
+        .features {
+            background: #e39f5f;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .features h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .feature-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .feature {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .feature:hover {
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .famous-books {
+            background: #dfb972;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .famous-books h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .book-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .book {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            transition: transform 0.3s ease-in-out;
+            text-align: center;
+        }
+        
+        .book img {
+            height: 250px;
+            width: 150px; 
+            border-radius: 10px;
+        }
+        
+        .book:hover {
+            transform: scale(1.05);
+        }
+        
+        .book p {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .famous-authors {
+            background: #ce8d57;
+            padding: 60px 20px 20px 20px;
+            text-align: center;
+        }
+        
+        .famous-authors h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .author-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .author {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .author img {
+            width: 150px;  
+            height: 200px; 
+            border-radius: 10px;
+        }
+        
+        .author:hover {
+            transform: scale(1.05);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        figcaption {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+footer {
+    background-color: #8f2917; 
+    padding: 30px 5%;
+    padding-top: 50px;
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    box-sizing: border-box;
+    margin-top: 0;
+}
+.social-icons {
+    display: flex;
+    gap: 15px; 
+}
+
+.social-icons img {
+    width: 30px; 
+    height: 30px;
+    object-fit: contain;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-icons img:hover {
+    transform: scale(1.2); 
+    opacity: 0.8;
+}
+.footer-links {
+    display: flex;
+    gap: 50px; 
+}
+
+.footer-links h3 {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 5px;
+}
+
+.footer-links ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+    color: #000000; 
+    text-decoration: underline;
+}
+
+.copyright {
+    text-align: right;
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    margin-top: 10px;
+}
+.logo-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text img {
+  height: 40px; 
+}
+
+.logo-text h1 {
+    color: #7f2515; 
+    display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+    </style>
+</head>
+<body>
+    <section class="banner">
+        <div class="banner-content">
+            <h1>Welcome to Our Online Fiction Library</h1>
+            <div class="logo-text">
+                <h1>FictionReads</h1>
+                <img src="logoFR2.png" alt="FictionReads Logo"> 
+            </div>              
+            <p>Discover, read, and review your favorite stories.</p>
+            <div class="buttons">
+                <a href="login.html">Login</a>
+                <a href="signup.html">Sign Up</a>
+            </div>
+        </div>
+    </section>
+    <section class="features">
+        <h2>Features</h2>
+        <div class="feature-list">
+            <div class="feature">📚 Wide Collection of Fiction Books</div>
+            <div class="feature">🌟 User Reviews and Ratings</div>
+            <div class="feature">📖 Read Books Online</div>
+        </div>
+    </section>
+    <section class="famous-books">
+        <h2>Famous Books</h2>
+        <div class="book-list">
+            <div class="book"><img src="https://www.pupilio.com/cdn/shop/files/71XRBP0JvPL._SL1200_1200x1200.jpg?v=1728279616" alt="Book 1"><p>The Great Adventures Of Sherlock Holmes</p></div>
+            <div class="book"><img src="https://m.media-amazon.com/images/I/81WFfV54T5L._AC_UF1000,1000_QL80_.jpg" alt="Book 2"><p>The Man Who Was Thursday</p></div>
+            <div class="book"><img src="https://m.media-amazon.com/images/I/81L91sL3vSL._AC_UF1000,1000_QL80_.jpg" alt="Book 3"><p>The Murder Of Roger Ackroyd</p></div>
+            <div class="book"><img src="https://www.obooko.com/images-cache/beauty-of-ares-van-orman-obooko-ebook-cef29c84b217507488ebd91274a9d31e.jpg" alt="Book 4"><p>Beauty Of Ares</p></div>
+        </div>
+    </section>
+    <section class="famous-authors">
+        <h2>Famous Authors</h2>
+        <div class="author-list">
+            <div class="author"><img src="https://oldtowncrier.com/wp-content/uploads/2020/09/last-word-agatha-christie.jpg" alt="Author 1"><figcaption>Agatha Christie</figcaption></div>
+            <div class="author"><img src="https://sevenov.com/wp-content/uploads/2024/02/hg-wells-20240212.jpg?ezimgfmt=ng%3Awebp%2Fngcb1%2Frs%3Adevice%2Frscb1-2" alt="Author 2"><figcaption>H.G Wells</figcaption></div>
+            <div class="author"><img src="https://www.english.ox.ac.uk/sites/default/files/english/images/person/Dwan%20David%2002.jpg" alt="Author 3"><figcaption>David Dwan</figcaption></div>
+            <div class="author"><img src="https://thedailygardener.org/wp-content/uploads/2023/10/Arthur-Conan-Doyle-Colorized-Portrait-BEF-1904.jpg" alt="Author 4"><figcaption>Arthur Conan Doyle</figcaption></div>
+        </div>
+    </section>
+    <footer>
+        <div class="social-icons">
+            <a href="https://twitter.com/" target="_blank">
+                <img src="https://freepnglogo.com/images/all_img/1725374683twitter-x-logo.png" alt="Twitter">
+            </a>
+            <a href="https://instagram.com/" target="_blank">
+                <img src="https://freepnglogo.com/images/1715963665instagram-logo-png-images.png" alt="Instagram">
+            </a>
+            <a href="https://facebook.com/" target="_blank">
+                <img src="https://freepnglogo.com/images/all_img/1713419302Black_Facebook_PNG.png" alt="Facebook">
+            </a>
+            <a href="https://youtube.com/" target="_blank">
+                <img src="https://freepnglogo.com/images/all_img/1701508739youtube-png.png" alt="YouTube">
+            </a>
+            <a href="https://tiktok.com/" target="_blank">
+                <img src="https://freepnglogo.com/images/all_img/tik-tok-logo-transparent-031f.png" alt="TikTok">
+            </a>
+        </div>
+        <div class="footer-links">
+            <div class="resources">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Vision.html">Vision</a></li>
+                    <li><a href="Mission.html">Mission</a></li>
+                    <li><a href="http://localhost:3000/contact">Contact Us</a></li>
+
+                </ul>
+            </div>
+            <div class="resources">
+                <h3>Library Info</h3>
+                <ul>
+                    <li><a href="Genres.html">Genres</a></li>
+                    <li><a href="Authors.html">Authors</a></li>
+                </ul>
+            </div>
+            <div class="policies">
+                <h3>Policies</h3>
+                <ul>
+                    <li><a href="TermsOfUse.html">Terms of Use</a></li>
+                    <li><a href="PrivacyPolicy.html">Privacy policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">©️ 2025 FictionReads.All rights reserved. </div>
+    </footer>
+</body>
+</body>
+</html>
